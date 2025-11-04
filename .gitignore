@@ -76,3 +76,6 @@ android.*
 *.wasm
 *.html
 *.js
+
+.vscode
+assets
