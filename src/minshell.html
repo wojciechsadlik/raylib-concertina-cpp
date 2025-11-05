@@ -8,7 +8,8 @@
 
     <meta name="title" content="raylib-concertina">
     <meta name="description" content="anglo-concertina simulation using raylib videogames library">
-    <meta name="keywords" content="raylib, games, html5, programming, C, C++, library, learn, videogames">
+    <meta name="keywords" content="raylib, games, html5, programming, C, C++, library, learn, videogames,
+        instrument, music, audio, synthesis">
     <meta name="viewport" content="width=device-width">
 
     <!-- Favicon -->
@@ -58,7 +59,9 @@
         <h1>raylib-concertina</h1>
         <p><strong>
             Anglo concertina simulation using <a href="https://www.raylib.com/">raylib</a>
-            and <a href="https://github.com/schellingb/TinySoundFont/">TinySoundFont</a></strong></p>
+            and <a href="https://github.com/schellingb/TinySoundFont/">TinySoundFont</a>
+        </strong></p>
+        <button id="audioBtn" onclick="toggleAudio()">🔇MUTE</button>
         <canvas class=emscripten id=canvas oncontextmenu=event.preventDefault() tabindex=-1></canvas>
         <p id="output" />
         <script>
@@ -80,6 +83,45 @@
                     return canvas;
                 })()
             };
+        </script>
+        <!-- adapted from https://github.com/raysan5/raylib/blob/master/src/shell.html -->
+        <script type="text/javascript">
+            const audioBtn = document.getElementById("audioBtn");
+            const audioCtxts = [];
+
+            function setAudioCtxts(resume) {
+                audioCtxts.forEach((ctx) => {
+                    if (ctx.state === "closed") return;
+                    if (resume) ctx.resume();
+                    else ctx.suspend();
+                });
+            }
+
+            function ctxStateChangeHandler() {
+                if (audioCtxts.find((ctx) => ctx.state === "suspended")) {
+                    setAudioCtxts(false);
+                    audioBtn.textContent = "🔈RESUME";
+                }
+                else {
+                    audioBtn.textContent = "🔇MUTE";
+                }
+            }
+
+            // A proxy object to intercept AudioContexts and
+            // add them to the array for tracking and resuming later
+            self.AudioContext = new Proxy(self.AudioContext, {
+                construct(target, args) {
+                    const result = new target(...args);
+                    result.addEventListener("statechange", ctxStateChangeHandler);
+                    audioCtxts.push(result);
+                    return result;
+                }
+            });
+
+            function toggleAudio() {
+                if (audioBtn.textContent.includes("MUTE")) setAudioCtxts(false);
+                else setAudioCtxts(true);
+            }
         </script>
         {{{ SCRIPT }}}
     </body>
