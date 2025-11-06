@@ -17,9 +17,9 @@ const int SCREEN_HEIGHT = 450;
 std::unique_ptr<Concertina> concertina;
 
 void init(void) {
+    SetTraceLogLevel(LOG_WARNING);
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "raylib-concertina");
     InitAudioDevice();
-    SetTraceLogLevel(LOG_WARNING);
     concertina = std::make_unique<Concertina>(SCREEN_WIDTH, SCREEN_HEIGHT);
 }
 
