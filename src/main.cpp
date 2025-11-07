@@ -30,7 +30,7 @@ void close(void) {
 
 void updateFrame()
 {
-    std::vector<Vector2> touchPoints(MAX_TOUCH_POINTS);
+    std::vector<Vector2> touchPoints(MAX_TOUCH_POINTS, {0.0, 0.0});
     int touchCnt = GetTouchPointCount();
     for (int i = 0; i < touchCnt; i++) touchPoints[i] = GetTouchPosition(i);
 

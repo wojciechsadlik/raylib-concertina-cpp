@@ -45,6 +45,8 @@ Concertina::Concertina(int screenWidth, int screenHeight)
 Concertina::~Concertina()
 {
     UnloadTexture(this->bg);
+    UnloadTexture(this->pullHighlight);
+    UnloadTexture(this->pushHighlight);
 }
 
 void Concertina::drawBg() const
