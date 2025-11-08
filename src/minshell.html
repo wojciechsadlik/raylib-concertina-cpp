@@ -87,6 +87,7 @@
         <!-- adapted from https://github.com/raysan5/raylib/blob/master/src/shell.html -->
         <script type="text/javascript">
             const audioBtn = document.getElementById("audioBtn");
+            const canvas = document.getElementById("canvas");
             const audioCtxts = [];
 
             function setAudioCtxts(resume) {
@@ -121,6 +122,7 @@
             function toggleAudio() {
                 if (audioBtn.textContent.includes("MUTE")) setAudioCtxts(false);
                 else setAudioCtxts(true);
+                canvas.focus();
             }
         </script>
         {{{ SCRIPT }}}
