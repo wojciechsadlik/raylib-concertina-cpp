@@ -125,6 +125,20 @@
                 canvas.focus();
             }
         </script>
+        <!-- overriding default DOMToGLFWKeyCode to catch ';' -->
+        <script>
+            window.addEventListener("load", () => {
+                const defaultDOMToGLFWKeyCode = GLFW.DOMToGLFWKeyCode;
+                GLFW.DOMToGLFWKeyCode = (keycode) => {
+                    switch (keycode) {
+                        case 186:
+                            return 59;
+                        default:
+                            return defaultDOMToGLFWKeyCode(keycode);
+                    }
+                };
+            });
+        </script>
         {{{ SCRIPT }}}
     </body>
 </html>
