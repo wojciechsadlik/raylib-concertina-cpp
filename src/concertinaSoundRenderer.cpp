@@ -8,7 +8,7 @@
 #define TSF_IMPLEMENTATION
 #include "tsf.h"
 
-
+const int BUFFER_SIZE = 128;
 constexpr const char* SF_PATH = "assets/Real-Life_Recorded_Accordion.sf2";
 
 tsf* tsfCbPtr = nullptr;
@@ -30,6 +30,7 @@ ConcertinaSoundRenderer::ConcertinaSoundRenderer(
     if (mode == TSF_STEREO_INTERLEAVED) {
         channels = 2;
     }
+    SetAudioStreamBufferSizeDefault(BUFFER_SIZE);
     this->stream = LoadAudioStream(sampleRate, sampleSize, channels);
     SetAudioStreamCallback(this->stream, renderAudioCallback);
     PlayAudioStream(this->stream);

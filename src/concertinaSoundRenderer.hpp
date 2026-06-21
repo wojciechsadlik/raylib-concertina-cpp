@@ -12,7 +12,7 @@ private:
     tsf* tinySoundFont;
     AudioStream stream;
 public:
-    ConcertinaSoundRenderer() : ConcertinaSoundRenderer(44100, 16, TSF_MONO) {};
+    ConcertinaSoundRenderer() : ConcertinaSoundRenderer(48000, 16, TSF_STEREO_INTERLEAVED) {};
     ConcertinaSoundRenderer(int sampleRate, int sampleSize, TSFOutputMode mode);
     ~ConcertinaSoundRenderer();
     void btnOn(int midiNoteNr);
